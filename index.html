@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Question</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 3s ease-in;
+        }
+        .heart {
+            color: red;
+            font-size: 50px;
+            animation: pulse 1.5s infinite;
+        }
+        .message {
+            font-size: 24px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin: 20px;
+        }
+        .buttons {
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 10px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .btn-yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-no {
+            background-color: #ff4444;
+            color: white;
+            position: relative;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .celebration-content {
+            color: white;
+            font-size: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <div class="message">
+            <p>Faith so juicy,</p>
+            <p>Will you marry me?</p>
+        </div>
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="sayYes()">Yes</button>
+            <button class="btn btn-no" onmouseover="moveButton(this)">No</button>
+        </div>
+        <div class="heart">❤️</div>
+    </div>
+    <div class="celebration">
+        <div class="celebration-content">
+            <p>Yayyy! 🎉</p>
+            <p>I love you forever! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function moveButton(button) {
+            const x = Math.random() * (window.innerWidth - button.offsetWidth);
+            const y = Math.random() * (window.innerHeight - button.offsetHeight);
+            button.style.position = 'fixed';
+            button.style.left = x + 'px';
+            button.style.top = y + 'px';
+        }
+
+        function sayYes() {
+            document.querySelector('.celebration').style.display = 'flex';
+            document.querySelector('.buttons').style.display = 'none';
+            confetti();
+        }
+
+        // Simple confetti effect
+        function confetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -20 + 'px';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.borderRadius = '50%';
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0)', opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(.25,.46,.45,.94)'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>
